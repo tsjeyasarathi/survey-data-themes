@@ -1,0 +1,418 @@
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="maicnNav">
+  <div class="container-fluid">
+
+      <a class="navbar-brand" href="index.html">Survery Data Themes</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link mr-lg-2" href="javascript:void(0)" (click)="summary = true" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Summary
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link mr-lg-2" href="javascript:void(0)" (click)="summary = false" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Customer Score
+        </a>
+      </li>
+      <li class="nav-item">
+        <form class="form-inline my-2 my-lg-0 mr-lg-2">
+          <div class="input-group">
+            <input class="form-control" type="text" placeholder="Search for...">
+              <span class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+          </div>
+        </form>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+          <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="content-wrapper">
+  <div class="container-fluid" [hidden]="!summary">
+    <!-- Breadcrumbs-->
+    <div class="breadcrumb row bg-2 filters">
+      <div class="col-lg-3">
+        <label for="exampleInputEmail1">Market</label>
+        <input class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="South" value="South">
+      </div>
+      <div class="col-lg-3">
+        <label for="exampleInputPassword1">OpCo</label>
+        <input class="form-control" id="exampleInputPassword1" type="text" placeholder="1" value="1">
+      </div>
+      <div class="col-lg-3">
+        <label for="exampleInputPassword1">Cuisine/Segment</label>
+        <input class="form-control" id="exampleInputPassword1" type="text" placeholder="American FSR" value="American FSR">
+      </div>
+      <div class="col-lg-3">
+        <label for="exampleInputEmail1">Account Type</label>
+        <input class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="TRS" value="TRS">
+      </div>
+      <div class="col-lg-3">
+        <label for="exampleInputPassword1">Customer Value</label>
+        <input class="form-control" id="exampleInputPassword1" type="text" placeholder="High" value="High">
+      </div>
+      <div class="col-lg-3">
+        <label for="exampleInputEmail1">Year+Quarter</label>
+        <input class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Year+Quarter">
+      </div>
+      <div class="col-lg-3">
+        <label for="exampleInputPassword1">Period/Month</label>
+        <input class="form-control" id="exampleInputPassword1" type="text" placeholder="Period/Month">
+      </div>
+      <div class="col-lg-3">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Feedback Category</label>
+          <select  class="form-control" [(ngModel)]="selected_category" (change)="optionChanged()">
+            <option *ngFor="let x of categories" [value]="x">
+              <span>{{x}}</span>
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <!--<div class="breadcrumb row bg-2 filters">-->
+      <!--<div class="col-lg-3">-->
+        <!--<div class="form-group">-->
+          <!--<label for="exampleInputEmail1">Feedback Category</label>-->
+          <!--<select  class="form-control" [(ngModel)]="selected_category" (change)="optionChanged()">-->
+          <!--<option *ngFor="let x of categories" [value]="x">-->
+            <!--<span>{{x}}</span>-->
+          <!--</option>-->
+          <!--</select>-->
+        <!--</div>-->
+       <!--</div>-->
+      <!--&lt;!&ndash;<div class="col-lg-3">&ndash;&gt;-->
+        <!--&lt;!&ndash;<label for="exampleInputPassword1">Feedback Sub-category</label>&ndash;&gt;-->
+        <!--&lt;!&ndash;<input class="form-control" id="exampleInputPassword1" type="text" placeholder="Sub Category">&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</div>-->
+    <div class="row">
+      <div class="col-lg-6">
+        <!-- Example Bar Chart Card-->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fa fa-pie-chart"></i> Conversations around Feedback</div>
+          <div class="card-body">
+            <div id="pie_1">
+
+            </div>
+            <!--<app-plotly-charts class="pull-left" [layout]="plotlyPieLayout"-->
+                               <!--[data]="getPieData(this.selected_category)"-->
+                               <!--[options]="plotlyOptions" [id]="'pie_1'">-->
+            <!--</app-plotly-charts>-->
+          </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <!-- Example Pie Chart Card-->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fa fa-bar-chart"></i> Sub dimension Sentiments</div>
+          <div class="card-body">
+            <div id="stacked_bar_1">
+
+            </div>
+            <!--<app-plotly-charts class="pull-left" [layout]="plotlyBarLayout"-->
+                               <!--[data]="getStackedBarData(this.selected_category)"-->
+                               <!--[options]="plotlyOptions" [id]="'stacked_bar_1'">-->
+            <!--</app-plotly-charts>-->
+          </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <!-- Example Bar Chart Card-->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fa fa-line-chart"></i> Dimensions Over Time</div>
+          <div class="card-body">
+            <app-plotly-charts class="pull-left" [layout]="plotlyAreaLayout"
+                               [data]="getDimData()"
+                               [options]="plotlyOptions" [id]="'ts_1'">
+            </app-plotly-charts>
+          </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <!-- Example Pie Chart Card-->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fa fa-line-chart"></i> Sub Dimensions Over Time</div>
+          <div class="card-body">
+            <app-plotly-charts class="pull-left" [layout]="plotlyAreaLayout"
+                               [data]="getSubDimData()"
+                               [options]="plotlyOptions" [id]="'ts_2'">
+            </app-plotly-charts>
+          </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid" [hidden]="summary">
+    <div class="breadcrumb row bg-2 filters">
+      <div class="col-lg-3">
+        <label for="exampleInputEmail1">Risk Category</label>
+        <input class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Risk Category">
+      </div>
+      <div class="col-lg-3">
+        <label for="exampleInputPassword1">Customer Number</label>
+        <input class="form-control" id="exampleInputPassword1" type="text" placeholder="Customer number">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- Example Bar Chart Card-->
+        <div class="card mb-3">
+          <div class="card-header">Quantitative Data</div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-1">
+
+              </div>
+              <div class="col-xl-2 col-sm-6 mb-3">
+                <div class="card text-white bg-primary o-hidden h-100">
+                  <div class="card-body">
+                    <div class="card-body-icon">
+                      <i class="fa fa-fw fa-comments"></i>
+                    </div>
+                    <div class="mr-5 fs-lg">4</div>
+                  </div>
+                  <a class="card-footer text-white clearfix small z-1" href="#">
+                    <span class="float-left">Marketing Associate</span>
+
+                  </a>
+                </div>
+              </div>
+              <div class="col-xl-2 col-sm-6 mb-3">
+                <div class="card text-white bg-warning o-hidden h-100">
+                  <div class="card-body">
+                    <div class="card-body-icon">
+                      <i class="fa fa-fw fa-list"></i>
+                    </div>
+                    <div class="mr-5 fs-lg">3</div>
+                  </div>
+                  <a class="card-footer text-white clearfix small z-1" href="#">
+                    <span class="float-left">Shopping for Items</span>
+
+                  </a>
+                </div>
+              </div>
+              <div class="col-xl-2 col-sm-6 mb-3">
+                <div class="card text-white bg-success o-hidden h-100">
+                  <div class="card-body">
+                    <div class="card-body-icon">
+                      <i class="fa fa-fw fa-shopping-cart"></i>
+                    </div>
+                    <div class="mr-5 fs-lg">3</div>
+                  </div>
+                  <a class="card-footer text-white clearfix small z-1" href="#">
+                    <span class="float-left">Placing Orders</span>
+
+                  </a>
+                </div>
+              </div>
+              <div class="col-xl-2 col-sm-6 mb-3">
+                <div class="card text-white bg-danger o-hidden h-100">
+                  <div class="card-body">
+                    <div class="card-body-icon">
+                      <i class="fa fa-fw fa-support"></i>
+                    </div>
+                    <div class="mr-5 fs-lg">2</div>
+                  </div>
+                  <a class="card-footer text-white clearfix small z-1" href="#">
+                    <span class="float-left">Logistics</span>
+
+                  </a>
+                </div>
+              </div>
+              <div class="col-xl-2 col-sm-6 mb-3">
+                <div class="card text-white bg-primary o-hidden h-100">
+                  <div class="card-body">
+                    <div class="card-body-icon">
+                      <i class="fa fa-fw fa-comments"></i>
+                    </div>
+                    <div class="mr-5 fs-lg">3</div>
+                  </div>
+                  <a class="card-footer text-white clearfix small z-1" href="#">
+                    <span class="float-left">Pricing/Payment</span>
+
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <!-- Example Pie Chart Card-->
+        <div class="card mb-3">
+          <div class="card-header">Qualitative Data</div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-1">
+
+              </div>
+              <div class="col-xl-2 col-sm-6 mb-3">
+                <div class="card text-white bg-primary o-hidden h-100">
+                  <div class="card-body">
+                    <div class="card-body-icon">
+                      <i class="fa fa-fw fa-comments"></i>
+                    </div>
+                    <div class="mr-5 fs-lg">3</div>
+                  </div>
+                  <a class="card-footer text-white clearfix small z-1" href="#">
+                    <span class="float-left">Marketing Associate</span>
+
+                  </a>
+                </div>
+              </div>
+              <div class="col-xl-2 col-sm-6 mb-3">
+                <div class="card text-white bg-warning o-hidden h-100">
+                  <div class="card-body">
+                    <div class="card-body-icon">
+                      <i class="fa fa-fw fa-list"></i>
+                    </div>
+                    <div class="mr-5 fs-lg">2</div>
+                  </div>
+                  <a class="card-footer text-white clearfix small z-1" href="#">
+                    <span class="float-left">Shopping for Items</span>
+
+                  </a>
+                </div>
+              </div>
+              <div class="col-xl-2 col-sm-6 mb-3">
+                <div class="card text-white bg-success o-hidden h-100">
+                  <div class="card-body">
+                    <div class="card-body-icon">
+                      <i class="fa fa-fw fa-shopping-cart"></i>
+                    </div>
+                    <div class="mr-5 fs-lg">3</div>
+                  </div>
+                  <a class="card-footer text-white clearfix small z-1" href="#">
+                    <span class="float-left">Placing Orders</span>
+
+                  </a>
+                </div>
+              </div>
+              <div class="col-xl-2 col-sm-6 mb-3">
+                <div class="card text-white bg-danger o-hidden h-100">
+                  <div class="card-body">
+                    <div class="card-body-icon">
+                      <i class="fa fa-fw fa-support"></i>
+                    </div>
+                    <div class="mr-5 fs-lg">1</div>
+                  </div>
+                  <a class="card-footer text-white clearfix small z-1" href="#">
+                    <span class="float-left">Logistics</span>
+
+                  </a>
+                </div>
+              </div>
+              <div class="col-xl-2 col-sm-6 mb-3">
+                <div class="card text-white bg-primary o-hidden h-100">
+                  <div class="card-body">
+                    <div class="card-body-icon">
+                      <i class="fa fa-fw fa-comments"></i>
+                    </div>
+                    <div class="mr-5 fs-lg">3</div>
+                  </div>
+                  <a class="card-footer text-white clearfix small z-1" href="#">
+                    <span class="float-left">Pricing/Payment</span>
+
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <!-- Example Pie Chart Card-->
+        <div class="card mb-3">
+          <div class="card-header">Customer Score</div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-3">
+
+              </div>
+              <div class="col-xl-2 col-sm-6 mb-3">
+                <div class="card text-white bg-primary o-hidden h-100">
+                  <div class="card-body">
+                    <div class="card-body-icon">
+                      <i class="fa fa-fw fa-comments"></i>
+                    </div>
+                    <div class="mr-5 fs-lg">3</div>
+                  </div>
+                  <a class="card-footer text-white clearfix small z-1" href="#">
+                    <span class="float-left">Quantitative Score</span>
+
+                  </a>
+                </div>
+              </div>
+              <div class="col-xl-2 col-sm-6 mb-3">
+                <div class="card text-white bg-success o-hidden h-100">
+                  <div class="card-body">
+                    <div class="card-body-icon">
+                      <i class="fa fa-fw fa-shopping-cart"></i>
+                    </div>
+                    <div class="mr-5 fs-lg">3</div>
+                  </div>
+                  <a class="card-footer text-white clearfix small z-1" href="#">
+                    <span class="float-left">Qualitative Score</span>
+
+                  </a>
+                </div>
+              </div>
+              <div class="col-xl-2 col-sm-6 mb-3">
+                <div class="card text-white bg-danger o-hidden h-100">
+                  <div class="card-body">
+                    <div class="card-body-icon">
+                      <i class="fa fa-fw fa-support"></i>
+                    </div>
+                    <div class="mr-5 fs-lg">3</div>
+                  </div>
+                  <a class="card-footer text-white clearfix small z-1" href="#">
+                    <span class="float-left">Overall Score</span>
+
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid-->
+  <!-- /.content-wrapper-->
+  <footer class="sticky-footer">
+    <div class="container">
+      <div class="text-center">
+        <small>Copyright © Survey Data Themes 2018</small>
+      </div>
+    </div>
+  </footer>
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+  </a>
+
+</div>
+</body>

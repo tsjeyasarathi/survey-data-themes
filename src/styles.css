@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+
+.bg-2 {
+  background: #f4f4f8 !important;
+}
+
+.filters label,input, select {
+  font-size: 13px !important;
+}
+
+.fs-lg {
+  font-size: 40px;
+}
+
+.card-header {
+  font-size: 15px !important;
+
+}
+
+.card-body {
+  padding: 1rem;
+}
